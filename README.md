@@ -2,29 +2,6 @@
 
 This project demonstrates how to deploy an application that reports unaccounted materials in production orders for the current day. The stack includes Terraform, Ansible, Docker, Kubernetes, Jenkins, and AWS.
 
-## Project Structure
-
-project-root/
-├── terraform/
-│ ├── main.tf
-│ ├── variables.tf
-│ └── outputs.tf
-├── ansible/
-│ ├── playbook.yml
-│ └── inventory.ini
-├── docker/
-│ ├── Dockerfile
-│ ├── requirements.txt
-│ └── app/
-│ └── app.py
-├── kubernetes/
-│ ├── deployment.yaml
-│ └── service.yaml
-├── jenkins/
-│ └── Jenkinsfile
-└── README.md
-
-
 ## Setup and Deployment Guide
 
 ### Prerequisites

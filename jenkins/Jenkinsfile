@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone repository') {
+            steps {
+                git 'https://github.com/vsflcn/production-orders-report-project.git'
+            }
+        }
+
+        stage('Build Docker image') {
+            steps {
+                script {
+                    dockerImage = docker.build("vsflcn/report-app:latest")
+                }
+            }
+        }
+
+        stage('Push Docker image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                kubernetesDeploy configs: 'kubernetes/deployment.yaml,kubernetes/service.yaml', kubeConfig: [path: '/path/to/kubeconfig']
+            }
+        }
+    }
+}

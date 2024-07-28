@@ -35,3 +35,16 @@ resoure "aws_security_group" "main" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 }
+
+resourse "aws_instance" "jenkins" {
+    ami = "ami-0c55b159cbfafe1f0" # Ubuntu 24.04 LTS
+    instance_type = "t2.micro"
+    subnet_id = aws_subnet.main.id
+    security_groups = [aws_security_group.main.name]
+
+    tags = {
+        Name = "JenkinsServer"
+    }
+
+    
+}

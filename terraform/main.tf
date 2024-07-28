@@ -46,5 +46,22 @@ resourse "aws_instance" "jenkins" {
         Name = "JenkinsServer"
     }
 
-    
+    provisioner "remote-exec" {
+        inline = [
+            "sudo apt uptade",
+            "sudo apt install -y openjdk-11-jdk",
+            "wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -",
+            "sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'",
+            "sudo apt update",
+            "sudo apt install -y jenkins",
+            "sudo systemctl start jenkins"
+        ]
+        
+        connection {
+            type        = "ssh"
+            user        = "ubuntu"
+            private_key = file("~/.ssh/id_rsa")
+            host        = self.public_ip
+        }
+    }    
 }

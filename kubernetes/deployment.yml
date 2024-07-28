@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: report-app
+  template:
+    metadata:
+      labels:
+        app: report-app
+    spec:
+      containers:
+      - name: report-app
+        image: your-dockerhub-username/report-app:latest
+        ports:
+        - containerPort: 80
